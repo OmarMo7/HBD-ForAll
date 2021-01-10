@@ -271,7 +271,7 @@ console.log(nav_Element.style.backgroundColor)
 }
 
 
-if (screen.availWidth >= 375 && screen.availWidth < 414){
+if (screen.availWidth >= 350 && screen.availWidth < 414){
   for (let i = 0; i < imgs.length; i++){
     imgs[i].setAttribute('style', 'width:340px; height: 380px;')
   }
