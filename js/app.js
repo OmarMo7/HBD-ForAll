@@ -18,6 +18,8 @@
  * 
 */
 
+
+
 const navbar = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('main section');
 var numOfSections = sections.length;
@@ -29,26 +31,7 @@ var numOfSections = sections.length;
  *
 */
 
-function addingActiveClass() {
-  let fromTop = window.scrollY;
-  //Selecting the currently viewed section's Id.
 
-
-  // mainNavLinks.forEach(link => {
-  //   if (!link.classList.contains('icon')) {
-  //     let section = document.querySelector(link.hash);
-  //     if ( //The section that its height is smaller or equal to windowY's height scroll is selected as active in the navbar
-  //       section.offsetTop <= fromTop + 250 &&
-  //       section.offsetTop + section.offsetHeight > fromTop + 250
-  //     ) {
-  //       link.classList.add("active");
-  //     } else {
-  //       link.classList.remove("active");
-  //     }
-  //   }
-  // });
-
-}
 
 function smoothScrolling() {
   window.scrollTo({
@@ -64,27 +47,10 @@ function smoothScrolling() {
  *
 */
 
-// build the nav
-let j = 0;
-sections.forEach(section => {
-  j++;
-  navbar.innerHTML += `<li><a href="#${section.id = 'section' + j}">${section.attributes['data-nav'].nodeValue}</a></li>`;
-})
 
 
-
-
-// Scroll to anchor ID using scroll event
-// var mainNavLinks = document.querySelectorAll("nav ul li a");
-
-window.addEventListener("scroll", addingActiveClass);
 smoothScrolling();
 
-/**
- * End Main Functions
- * Begin Events
- *
-*/
 
 
 // Set sections as active using IntersectionObserver constructor 
@@ -126,10 +92,79 @@ window.addEventListener('scroll', function () {
 }, false);
 
 
+var slideShow = document.getElementById('slideshow-container')
+const underTextArray = ['عادل روش', 'عادل سرحان وجاضض باين', 'مش كفاية الصورة دى بقا ولا ايه', 'هههه']
+var dots = document.createElement('div')
+dots.style.textAlign = "center"
+dots.setAttribute('id', 'dots')
 
-function myFunction() {
-  document.getElementById("navbar__list").classList.toggle('responsive');
+
+for (let x = 1; x < 5; x++) {
+  var span = document.createElement('span')
+  span.classList.add('dot')
+  span.setAttribute('id', `${x}`)
+  dots.appendChild(span)
 }
+
+
+dots.childNodes.forEach(span => {
+  span.addEventListener('click', function () {
+    console.log(span.id)
+    currentSlide(span.id)
+  })
+});
+
+
+
+
+var next = ''
+var prev = ''
+
+
+function createSlideShow() {
+  for (let i = 1; i < 5; i++) {
+
+    var mySlidesFade = document.createElement("div")
+    var numberText = document.createElement("div")
+    var img = document.createElement("img")
+    var underText = document.createElement("div")
+    next = document.createElement("a")
+    prev = document.createElement("a")
+    next.classList.add('next')
+    next.innerHTML = '&#10095;'
+    prev.classList.add('prev')
+    prev.innerHTML = '&#10094;'
+    numberText.innerHTML = `${i} / 4`
+   
+
+    slideShow.setAttribute('id', 'slideshow-container')
+    mySlidesFade.classList.add('mySlides')
+    mySlidesFade.classList.add('fade')
+    numberText.classList.add('numbertext')
+    img.src = `img/Adel${i}.jpg`
+    img.setAttribute('style', 'width:600px; height: 650px;  border-radius: 5%;')
+    underText.classList.add("text")
+    underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em;margin-bottom:10px;")
+    underText.innerHTML = underTextArray[i - 1]
+
+    slideShow.appendChild(mySlidesFade)
+    mySlidesFade.appendChild(img)
+    mySlidesFade.appendChild(underText)
+    mySlidesFade.appendChild(numberText)
+    slideShow.appendChild(prev)
+    slideShow.appendChild(next)
+  }
+}
+
+createSlideShow()
+next.addEventListener('click', function () {
+  plusSlides(1)
+})
+prev.addEventListener('click', function () {
+  plusSlides(-1)
+})
+
+slideShow.append(dots)
 
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -161,6 +196,7 @@ function showSlides(n) {
 }
 
 
+
 // var body = document.body.style.background;
 var h1_Elements = document.querySelectorAll('h1');
 var h2_Elements = document.querySelectorAll('h2');
@@ -176,7 +212,7 @@ var light_h2_Elements = h2_Elements[0].style.color;
 var light_nav_Element = nav_Element.style.backgroundColor;
 var light_section_Elements = section_Elements[0].style.color;
 var light_p_Elements = p_Elements[0].style.color;
-var DarkModeLabel = document.getElementById("DarkModeLabel").style.transform;
+var DarkModeLabel = document.getElementById("DarkModeLabel");
 var switchButton = document.querySelector(".switch")
 
 function lightMode() {
