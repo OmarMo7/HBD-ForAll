@@ -93,11 +93,13 @@ window.addEventListener('scroll', function () {
 
 
 var slideShow = document.getElementById('slideshow-container')
+const imgSrc = ['img/Adel1.jpg', 'img/Adel2.jpg', 'img/Adel3.jpg', 'img/Adel4.jpg']
 const underTextArray = ['عادل روش', 'عادل سرحان وجاضض باين', 'مش كفاية الصورة دى بقا ولا ايه', 'هههه']
 var dots = document.createElement('div')
 dots.style.textAlign = "center"
 dots.setAttribute('id', 'dots')
 
+pefrormAction()
 
 for (let x = 1; x < 5; x++) {
   var span = document.createElement('span')
@@ -109,19 +111,12 @@ for (let x = 1; x < 5; x++) {
 
 dots.childNodes.forEach(span => {
   span.addEventListener('click', function () {
-    console.log(span.id)
     currentSlide(span.id)
   })
 });
 
 
-
-
-var next = ''
-var prev = ''
-
-
-function createSlideShow() {
+async function createSlideShow() {
   for (let i = 1; i < 5; i++) {
 
     var mySlidesFade = document.createElement("div")
@@ -130,12 +125,21 @@ function createSlideShow() {
     var underText = document.createElement("div")
     next = document.createElement("a")
     prev = document.createElement("a")
+
     next.classList.add('next')
     next.innerHTML = '&#10095;'
     prev.classList.add('prev')
     prev.innerHTML = '&#10094;'
+
+    slideShow.appendChild(mySlidesFade)
+    mySlidesFade.appendChild(img)
+    mySlidesFade.appendChild(underText)
     numberText.innerHTML = `${i} / 4`
-   
+    mySlidesFade.appendChild(numberText)
+    slideShow.appendChild(prev)
+    slideShow.appendChild(next)
+
+
 
     slideShow.setAttribute('id', 'slideshow-container')
     mySlidesFade.classList.add('mySlides')
@@ -144,25 +148,28 @@ function createSlideShow() {
     img.src = `img/Adel${i}.jpg`
     img.setAttribute('style', 'width:600px; height: 650px;  border-radius: 5%;')
     underText.classList.add("text")
-    underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em;margin-bottom:10px;")
+    underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
     underText.innerHTML = underTextArray[i - 1]
+  }
 
-    slideShow.appendChild(mySlidesFade)
-    mySlidesFade.appendChild(img)
-    mySlidesFade.appendChild(underText)
-    mySlidesFade.appendChild(numberText)
-    slideShow.appendChild(prev)
-    slideShow.appendChild(next)
+  return {
+    next,
+    prev
   }
 }
 
-createSlideShow()
-next.addEventListener('click', function () {
-  plusSlides(1)
-})
-prev.addEventListener('click', function () {
-  plusSlides(-1)
-})
+async function pefrormAction(){
+  const {next,prev} = await createSlideShow()
+  next.addEventListener('click', function () {
+    plusSlides(1)
+  })
+  prev.addEventListener('click', function () {
+    plusSlides(-1)
+  })
+}
+
+
+
 
 slideShow.append(dots)
 
@@ -194,7 +201,6 @@ function showSlides(n) {
   slides[slideIndex - 1].style.display = "block";
   dots[slideIndex - 1].className += " active";
 }
-
 
 
 // var body = document.body.style.background;
