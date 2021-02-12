@@ -424,7 +424,7 @@ nav ul li a {
 }
 
 /* Slideshow container */
-.slideshow-container {
+#slideshow-container {
   max-width: 600px;
   position: relative;
   margin: auto;
@@ -489,7 +489,7 @@ nav ul li a {
   cursor: pointer;
   height: 15px;
   width: 15px;
-  margin: 0 2px;
+  margin: 0 4px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
