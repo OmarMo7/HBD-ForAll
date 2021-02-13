@@ -34,9 +34,7 @@ h1 {
 h2{
   font-size: 2em;
 }
-p{
-  font-size: 2em;
-}
+
 p span{
   font-size: 1em;
 }
@@ -55,6 +53,7 @@ h2 {
 p {
   line-height: 1.6em;
   color: #eee;
+  font-size: 2em;
 }
 
 /* ---- Layout Rules ---- */
