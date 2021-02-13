@@ -99,7 +99,7 @@ var dots = document.createElement('div')
 dots.style.textAlign = "center"
 dots.setAttribute('id', 'dots')
 
-pefrormAction()
+createSlideShow()
 
 for (let x = 1; x < 5; x++) {
   var span = document.createElement('span')
@@ -123,8 +123,8 @@ async function createSlideShow() {
     var numberText = document.createElement("div")
     var img = document.createElement("img")
     var underText = document.createElement("div")
-    next = document.createElement("a")
-    prev = document.createElement("a")
+    var next = document.createElement("a")
+    var prev = document.createElement("a")
 
     next.classList.add('next')
     next.innerHTML = '&#10095;'
@@ -150,23 +150,17 @@ async function createSlideShow() {
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
     underText.innerHTML = underTextArray[i - 1]
-  }
 
-  return {
-    next,
-    prev
+    next.addEventListener('click', function () {
+      plusSlides(1)
+    })
+    prev.addEventListener('click', function () {
+      plusSlides(-1)
+    })
   }
 }
 
-async function pefrormAction(){
-  const {next,prev} = await createSlideShow()
-  next.addEventListener('click', function () {
-    plusSlides(1)
-  })
-  prev.addEventListener('click', function () {
-    plusSlides(-1)
-  })
-}
+
 
 
 
