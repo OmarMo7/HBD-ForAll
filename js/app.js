@@ -21,8 +21,7 @@
 
 
 const navbar = document.getElementById('navbar__list');
-const sections = document.querySelectorAll('main section');
-var numOfSections = sections.length;
+// var numOfSections = sections.length;
 
 
 /**
@@ -54,19 +53,7 @@ smoothScrolling();
 
 
 // Set sections as active using IntersectionObserver constructor 
-observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('your-active-class');
-    } else {
-      entry.target.classList.remove('your-active-class');
-    }
-  });
-}, { rootMargin: "-200px 0px -200px 0px" });
 
-sections.forEach(section => {
-  observer.observe(section);
-});
 
 
 
@@ -91,7 +78,7 @@ window.addEventListener('scroll', function () {
   }, timeout);
 }, false);
 
-
+var main = document.querySelector('main')
 var slideShow = document.getElementById('slideshow-container')
 const imgSrc = ['img/Adel1.jpg', 'img/Adel2.jpg', 'img/Adel3.jpg', 'img/Adel4.jpg']
 const underTextArray = ['عادل روش', 'عادل سرحان وجاضض باين', 'مش كفاية الصورة دى بقا ولا ايه', 'هههه']
@@ -101,22 +88,10 @@ dots.setAttribute('id', 'dots')
 
 createSlideShow()
 
-for (let x = 1; x < 5; x++) {
-  var span = document.createElement('span')
-  span.classList.add('dot')
-  span.setAttribute('id', `${x}`)
-  dots.appendChild(span)
-}
 
 
-dots.childNodes.forEach(span => {
-  span.addEventListener('click', function () {
-    currentSlide(span.id)
-  })
-});
 
-
-async function createSlideShow() {
+function createSlideShow() {
   for (let i = 1; i < 5; i++) {
 
     var mySlidesFade = document.createElement("div")
@@ -158,14 +133,85 @@ async function createSlideShow() {
       plusSlides(-1)
     })
   }
+
+  slideShow.append(dots)
+
+  for (let x = 1; x < 5; x++) {
+    var span = document.createElement('span')
+    span.classList.add('dot')
+    span.setAttribute('id', `${x}`)
+    dots.appendChild(span)
+  }
+
+
+  dots.childNodes.forEach(span => {
+    span.addEventListener('click', function () {
+      currentSlide(span.id)
+    })
+  });
 }
 
 
+function createHeader() {
+  var header = document.createElement('header')
+  var shortMessage = document.createElement('h1')
+  var longMessage = document.createElement('h2')
+
+  header.appendChild(shortMessage)
+  header.appendChild(longMessage)
 
 
+  shortMessage.innerHTML = "You know what!.. I missed you so much, man"
+  longMessage.innerHTML = ' :"D الهارد اللى عليه الصور القديمة بايظ .. فاعتبرنى بمشّى حالى وكده'
+  longMessage.setAttribute('style', "font-family: 'Harmattan', sans-serif; text-align: center;")
+
+  main.appendChild(header)
+}
+
+function createSection() {
+  var section = document.createElement('section')
+  var landingContainer = document.createElement('div')
+  var nameOfSection = document.createElement('h2')
+  var commentOnSection = document.createElement('p')
+  var img = document.createElement('img')
 
 
-slideShow.append(dots)
+  section.appendChild(landingContainer)
+  landingContainer.appendChild(nameOfSection)
+  landingContainer.appendChild(commentOnSection)
+  section.appendChild(img)
+
+  section.setAttribute('id', 'section1')
+  section.setAttribute('data-nav', 'Section 1')
+  nameOfSection.textContent = "Section 1"
+  landingContainer.classList.add('landing__container')
+  commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
+  img.setAttribute('src', 'img/Adel2.jpg')
+  img.setAttribute('style', "width:300px; height: 310px; border-radius: 10%;")
+
+  commentOnSection.innerHTML = ' :"D خلاص نويت تعمل السكسوكة حقتك'
+
+  main.appendChild(section)
+}
+
+createHeader()
+createSection()
+createSection()
+
+
+const sections = document.querySelectorAll('main section');
+observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('your-active-class');
+    } else {
+      entry.target.classList.remove('your-active-class');
+    }
+  });
+}, { rootMargin: "-200px 0px -200px 0px" });
+sections.forEach(section => {
+  observer.observe(section);
+});
 
 var slideIndex = 1;
 showSlides(slideIndex);
