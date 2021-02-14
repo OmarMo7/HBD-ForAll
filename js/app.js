@@ -17,20 +17,27 @@
  * Define Global Variables
  * 
 */
-
-
-
 const navbar = document.getElementById('navbar__list');
-// var numOfSections = sections.length;
+var isScrolling;
+const main = document.querySelector('main')
+const slideShow = document.getElementById('slideshow-container')
+var dots = document.createElement('div')
+var slideIndex = 1;
 
+const objectContainer = {
+  imgForSlider: ['img/Adel1.jpg', 'img/Adel2.jpg', 'img/Adel3.jpg', 'img/Adel4.jpg'],
+  underTextSlider: ['مش كفاية الصورة دى بقا ولا ايه', 'عادل روش', 'عادل سرحان وجاضض باين', 'هههه'],
+  shortMessage: "You know what!.. I missed you so much, man",
+  longMessage: ':"D الهارد اللى عليه الصور القديمة بايظ .. فاعتبرنى بمشّى حالى وكده',
+  commentOnSection: [' :"D خلاص نويت تعمل السكسوكة حقتك', ' السكسوكة حقتك'],
+  imgForSections: ['img/Adel3.jpg', 'img/Adel4.jpg']
+};
 
 /**
  * End Global Variables
  * Start Helper Functions
  *
 */
-
-
 
 function smoothScrolling() {
   window.scrollTo({
@@ -40,27 +47,16 @@ function smoothScrolling() {
   });
 }
 
-/**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
 
-
-
-smoothScrolling();
-
-
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
 // Set sections as active using IntersectionObserver constructor 
-
-
-
-
-// Hiding fixed navigation bar while not scrolling
-var isScrolling;
-
-// Listen for scroll events
 window.addEventListener('scroll', function () {
   let timeout = 0;
   if (window.innerWidth > 768) {
@@ -78,22 +74,18 @@ window.addEventListener('scroll', function () {
   }, timeout);
 }, false);
 
-var main = document.querySelector('main')
-var slideShow = document.getElementById('slideshow-container')
-const imgSrc = ['img/Adel1.jpg', 'img/Adel2.jpg', 'img/Adel3.jpg', 'img/Adel4.jpg']
-const underTextArray = ['عادل روش', 'عادل سرحان وجاضض باين', 'مش كفاية الصورة دى بقا ولا ايه', 'هههه']
-var dots = document.createElement('div')
-dots.style.textAlign = "center"
-dots.setAttribute('id', 'dots')
-
-createSlideShow()
 
 
 
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+function createSlideShow(objectContainer) {
 
-function createSlideShow() {
-  for (let i = 1; i < 5; i++) {
-
+  let i = 1;
+  objectContainer.imgForSlider.forEach(imgName => {
     var mySlidesFade = document.createElement("div")
     var numberText = document.createElement("div")
     var img = document.createElement("img")
@@ -120,11 +112,11 @@ function createSlideShow() {
     mySlidesFade.classList.add('mySlides')
     mySlidesFade.classList.add('fade')
     numberText.classList.add('numbertext')
-    img.src = `img/Adel${i}.jpg`
+    img.src = imgName
     img.setAttribute('style', 'width:600px; height: 650px;  border-radius: 5%;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
-    underText.innerHTML = underTextArray[i - 1]
+    underText.innerHTML = objectContainer.underTextSlider[i - 1]
 
     next.addEventListener('click', function () {
       plusSlides(1)
@@ -132,27 +124,25 @@ function createSlideShow() {
     prev.addEventListener('click', function () {
       plusSlides(-1)
     })
-  }
 
-  slideShow.append(dots)
-
-  for (let x = 1; x < 5; x++) {
     var span = document.createElement('span')
     span.classList.add('dot')
-    span.setAttribute('id', `${x}`)
+    span.setAttribute('id', `${i}`)
     dots.appendChild(span)
-  }
+    i++
 
-
-  dots.childNodes.forEach(span => {
     span.addEventListener('click', function () {
       currentSlide(span.id)
     })
-  });
+  })
+  dots.style.textAlign = "center"
+  dots.setAttribute('id', 'dots')
+  slideShow.append(dots)
+
+
 }
 
-
-function createHeader() {
+function createHeader(objectContainer) {
   var header = document.createElement('header')
   var shortMessage = document.createElement('h1')
   var longMessage = document.createElement('h2')
@@ -161,42 +151,67 @@ function createHeader() {
   header.appendChild(longMessage)
 
 
-  shortMessage.innerHTML = "You know what!.. I missed you so much, man"
-  longMessage.innerHTML = ' :"D الهارد اللى عليه الصور القديمة بايظ .. فاعتبرنى بمشّى حالى وكده'
+  shortMessage.innerHTML = objectContainer.shortMessage
+  longMessage.innerHTML = objectContainer.longMessage
   longMessage.setAttribute('style', "font-family: 'Harmattan', sans-serif; text-align: center;")
 
   main.appendChild(header)
 }
 
-function createSection() {
-  var section = document.createElement('section')
-  var landingContainer = document.createElement('div')
-  var nameOfSection = document.createElement('h2')
-  var commentOnSection = document.createElement('p')
-  var img = document.createElement('img')
+function createSection(objectContainer) {
 
+  let i = 0;
+  objectContainer.commentOnSection.forEach(Comment => {
+    var section = document.createElement('section')
+    var landingContainer = document.createElement('div')
+    var nameOfSection = document.createElement('h2')
+    var commentOnSection = document.createElement('p')
+    var img = document.createElement('img')
 
-  section.appendChild(landingContainer)
-  landingContainer.appendChild(nameOfSection)
-  landingContainer.appendChild(commentOnSection)
-  section.appendChild(img)
+    section.appendChild(landingContainer)
+    landingContainer.appendChild(nameOfSection)
+    landingContainer.appendChild(commentOnSection)
+    section.appendChild(img)
 
-  section.setAttribute('id', 'section1')
-  section.setAttribute('data-nav', 'Section 1')
-  nameOfSection.textContent = "Section 1"
-  landingContainer.classList.add('landing__container')
-  commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
-  img.setAttribute('src', 'img/Adel2.jpg')
-  img.setAttribute('style', "width:300px; height: 310px; border-radius: 10%;")
+    section.setAttribute('id', 'section1')
+    section.setAttribute('data-nav', 'Section 1')
+    nameOfSection.textContent = "Section 1"
+    landingContainer.classList.add('landing__container')
+    commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
+    img.setAttribute('src', objectContainer.imgForSections[i])
+    img.setAttribute('style', "width:300px; height: 310px; border-radius: 10%;")
 
-  commentOnSection.innerHTML = ' :"D خلاص نويت تعمل السكسوكة حقتك'
+    commentOnSection.textContent = Comment
 
-  main.appendChild(section)
+    main.appendChild(section)
+    i++
+  })
 }
 
-createHeader()
-createSection()
-createSection()
+// Next/previous controls
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}
+
+
+
+smoothScrolling()
+createSlideShow(objectContainer)
+showSlides(slideIndex)
+createHeader(objectContainer)
+createSection(objectContainer)
 
 
 const sections = document.querySelectorAll('main section');
@@ -213,34 +228,8 @@ sections.forEach(section => {
   observer.observe(section);
 });
 
-var slideIndex = 1;
-showSlides(slideIndex);
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) { slideIndex = 1 }
-  if (n < 1) { slideIndex = slides.length }
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-}
 
 
 // var body = document.body.style.background;
