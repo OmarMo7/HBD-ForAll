@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Adel's Birthday</title>
+  <title>Birthday</title>
   <!-- Load Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">
   <!-- Load Styles -->
@@ -16,12 +16,14 @@
 </head>
 
 <body>
-  <nav class="navbar__menu">
-    <!-- Navigation starts as empty UL that will be populated with JS -->
-    <a href="/" id="logo">
+
+
+  <!-- Navigation starts as empty UL that will be populated with JS -->
+  <!-- <nav class=""> -->
+    <!-- <a href="/" id="logo">
       <h1 class="">Happy Birthday My dear friend, <span id="nameInNav">Dola!</span></h1>
     </a>
-    <ul class="topnav" id="navbar__list">
+    <ul class="topnav">
       <li>
         <a href="/" class="">
         </a>
@@ -30,15 +32,31 @@
         <a href="/" class="">
         </a>
       </li>
-    </ul>
-  </nav>
+    </ul> -->
+  <!-- </nav> -->
+
+  <form action="/" method="post">
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" id="username" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" id="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit" id="login">Login</button>
+    </div>
+
+
+  </form>
   <!-- Rounded switch -->
-  <label for="DarkMode" id="DarkModeLabel">Light Mode</label>
-  <label class="switch">
-    <input type="checkbox" id="DarkMode" name="DarkMode" onclick="toggle()">
-    <span class="slider round"></span>
-  </label>
-  <main>
+  <!-- <div id="buttonContainer" class="">
+    <label class="switch">
+      <label for="DarkMode" id="DarkModeLabel">Light Mode</label>
+      <input type="checkbox" id="DarkMode" name="DarkMode" onclick="toggle()">
+      <span class="slider round"></span>
+    </label>
+  </div> -->
+  <main class="">
     <!-- Slideshow container -->
     <div id="slideshow-container">
 
@@ -79,10 +97,10 @@
       <span class="dot" onclick="currentSlide(4)"></span>
     </div> -->
 
-    <header class="main__hero">
+    <!-- <header class="main__hero">
       <h1 id="shortMessage"></h1>
       <h2 id="longMessage"></h2>
-    </header>
+    </header> -->
     <!-- Each Section has an ID (used for the anchor) and 
     a data attribute that will populate the li node.
     Adding more sections will automatically populate nav.
@@ -128,10 +146,10 @@
       <img src="img/Adel1.jpg" style="width:350px; height: 320px; border-radius: 10%;">
     </section> -->
   </main>
-  <footer class="page__footer" id="page__footer">
+  <!-- <footer class="page__footer" id="page__footer">
     <p>&copy OmarMostafa</p>
     <p>Made only for Adel Ebrahim</p>
-  </footer>
+  </footer> -->
   <script src="js/app.js"></script>
 </body>
 
