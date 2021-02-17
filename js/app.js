@@ -17,20 +17,34 @@
  * Define Global Variables
  * 
 */
-const navbar = document.getElementById('navbar__list');
+const body = document.querySelector('body')
 var isScrolling;
 const main = document.querySelector('main')
 const slideShow = document.getElementById('slideshow-container')
 var dots = document.createElement('div')
+var list = document.createElement('ul')
+var footer = document.querySelector('footer')
+var form = document.querySelector('form')
+var login = document.getElementById('login')
+
+
+var navLightThemeColor = 'rgb(211, 211, 211)'
+var navDarkThemeColor = 'rgb(27, 26, 26)'
+var DarkThemeColor = 'white'
+var LightThemeColor = 'black'
+
 var slideIndex = 1;
 
 const objectContainer = {
   imgForSlider: ['img/Adel1.jpg', 'img/Adel2.jpg', 'img/Adel3.jpg', 'img/Adel4.jpg'],
-  underTextSlider: ['مش كفاية الصورة دى بقا ولا ايه', 'عادل روش', 'عادل سرحان وجاضض باين', 'هههه'],
-  shortMessage: "You know what!.. I missed you so much, man",
-  longMessage: ':"D الهارد اللى عليه الصور القديمة بايظ .. فاعتبرنى بمشّى حالى وكده',
-  commentOnSection: [' :"D خلاص نويت تعمل السكسوكة حقتك', ' السكسوكة حقتك'],
-  imgForSections: ['img/Adel3.jpg', 'img/Adel4.jpg']
+  underTextSlider: [' عادل روش', 'عادل سرحان وجاضض باين', '', ' مش كفاية الصورة دى بقا ولا ايه  :"D'],
+  shortMessage: "You know what!.. I missed You so much man",
+  longMessage: 'Hello gmd',
+  commentOnSection: ['دى اخر مرة عيّدت عليك فيها كانت من سنتين :"/ .. ساد بشدّة', 'كبر وبقا عنده عشرين سنة بحالها! ..:"D السرحان فى الملكوت', ':"D خلاص نويت تعمل السكسوكة حقتك'],
+  imgForSections: ['img/Adel3.jpg', 'img/Adel4.jpg', 'img/Adel2.jpg'],
+  forOnly: '',
+  specialQuote: ' كل سنة وانت طيب يا دولة  ',
+  specialQuoteColor: 'brown'
 };
 
 /**
@@ -38,6 +52,31 @@ const objectContainer = {
  * Start Helper Functions
  *
 */
+
+
+
+login.addEventListener('click', function () {
+  var name = document.getElementById('username')
+  var password = document.getElementById('password')
+
+  localStorage.setItem('name', name.value);
+  localStorage.setItem('password', password.value);
+  setTimeout(function () { refreshPage() }, 1000)
+  console.log('isPerson: ' + name.value)
+  console.log('isPerson: ' + password.value)
+
+})
+
+function refreshPage() {
+  window.location.reload();
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
 
 function smoothScrolling() {
   window.scrollTo({
@@ -67,10 +106,10 @@ window.addEventListener('scroll', function () {
   }
   // Clear our timeout throughout the scroll
   window.clearTimeout(isScrolling);
-  navbar.classList.remove('fadingOut');
+  list.classList.remove('fadingOut');
   // Set a timeout to run after scrolling ends
   isScrolling = setTimeout(function () {
-    navbar.classList.add('fadingOut');
+    list.classList.add('fadingOut');
   }, timeout);
 }, false);
 
@@ -82,7 +121,39 @@ window.addEventListener('scroll', function () {
  * Begin Main Functions
  *
 */
+function createNav(sections) {
+  var navbar = document.createElement('nav')
+  var logo = document.createElement('a')
+  var upMessage = document.createElement('h1')
+  var Name = document.createElement('span')
+
+
+
+  navbar.classList.add('navbar__menu')
+  logo.setAttribute('href', '/')
+  logo.setAttribute('id', 'logo')
+  upMessage.textContent = "Happy Birthday My dear friend,"
+  Name.textContent = "Dola!"
+  Name.setAttribute('id', 'nameInNav')
+  list.classList.add('topnav')
+
+  logo.appendChild(upMessage)
+  navbar.appendChild(logo)
+  navbar.appendChild(list)
+  upMessage.appendChild(Name)
+  var j = 0
+  sections.forEach(section => {
+    var list_Element = document.createElement('li')
+    j++;
+    list_Element.innerHTML += `<a href="#${section.id = 'section' + j}" style = "color: rgb(101, 101, 98)">${section.attributes['data-nav'].nodeValue}</a>`
+    list.appendChild(list_Element)
+  })
+  body.insertBefore(navbar, main)
+}
+
 function createSlideShow(objectContainer) {
+
+
 
   let i = 1;
   objectContainer.imgForSlider.forEach(imgName => {
@@ -113,7 +184,8 @@ function createSlideShow(objectContainer) {
     mySlidesFade.classList.add('fade')
     numberText.classList.add('numbertext')
     img.src = imgName
-    img.setAttribute('style', 'width:600px; height: 650px;  border-radius: 5%;')
+    img.classList.add('responsive')
+    img.setAttribute('style', 'max-width:100%; max-height: 100%; border-radius: 5%; display:block;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
     underText.innerHTML = objectContainer.underTextSlider[i - 1]
@@ -135,6 +207,7 @@ function createSlideShow(objectContainer) {
       currentSlide(span.id)
     })
   })
+
   dots.style.textAlign = "center"
   dots.setAttribute('id', 'dots')
   slideShow.append(dots)
@@ -142,7 +215,36 @@ function createSlideShow(objectContainer) {
 
 }
 
+function createNightButton() {
+  var div = document.createElement('div')
+  var switsh = document.createElement('label')
+  var DarkModeLabel = document.createElement('label')
+  var DarkMode = document.createElement('input')
+  var span = document.createElement('span')
+  div.setAttribute('id', 'buttonContainer')
+  switsh.setAttribute('class', 'switch')
+  DarkModeLabel.setAttribute('for', 'DarkMode')
+  DarkModeLabel.setAttribute('id', 'DarkModeLabel')
+  DarkModeLabel.textContent = 'Light Mode'
+  DarkMode.setAttribute('id', 'DarkMode')
+  DarkMode.setAttribute('type', 'checkbox')
+  DarkMode.setAttribute('name', 'DarkMode')
+  DarkMode.addEventListener('click', function () { toggle() })
+  span.classList.add('slider')
+  span.classList.add('round')
+
+  div.appendChild(switsh)
+  switsh.appendChild(DarkModeLabel)
+  switsh.appendChild(DarkMode)
+  switsh.appendChild(span)
+  body.insertBefore(div, main)
+
+
+}
+
 function createHeader(objectContainer) {
+
+
   var header = document.createElement('header')
   var shortMessage = document.createElement('h1')
   var longMessage = document.createElement('h2')
@@ -156,11 +258,11 @@ function createHeader(objectContainer) {
   longMessage.setAttribute('style', "font-family: 'Harmattan', sans-serif; text-align: center;")
 
   main.appendChild(header)
+
 }
-
-function createSection(objectContainer) {
-
+function createSection(objectContainer, specificSectionNum) {
   let i = 0;
+
   objectContainer.commentOnSection.forEach(Comment => {
     var section = document.createElement('section')
     var landingContainer = document.createElement('div')
@@ -174,20 +276,24 @@ function createSection(objectContainer) {
     section.appendChild(img)
 
     section.setAttribute('id', 'section1')
-    section.setAttribute('data-nav', 'Section 1')
-    nameOfSection.textContent = "Section 1"
+    section.setAttribute('data-nav', `Section ${i + 1}`)
+    nameOfSection.textContent = `Section ${i + 1}`
     landingContainer.classList.add('landing__container')
     commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
     img.setAttribute('src', objectContainer.imgForSections[i])
     img.setAttribute('style', "width:300px; height: 310px; border-radius: 10%;")
 
     commentOnSection.textContent = Comment
-
+    if (i + 1 == specificSectionNum) {
+      var specialQuote = document.createElement('span')
+      specialQuote.textContent = objectContainer.specialQuote
+      specialQuote.style.color = objectContainer.specialQuoteColor
+      commentOnSection.append(specialQuote)
+    }
     main.appendChild(section)
     i++
   })
 }
-
 // Next/previous controls
 function showSlides(n) {
   var i;
@@ -203,125 +309,130 @@ function showSlides(n) {
   }
   slides[slideIndex - 1].style.display = "block";
   dots[slideIndex - 1].className += " active";
+
+}
+
+function createFooter(objectContainer) {
+  var footer = document.createElement('footer')
+  var copy = document.createElement('p')
+  var forOnly = document.createElement('p')
+  footer.classList.add('page__footer')
+  footer.setAttribute('id', 'page__footer')
+  copy.innerHTML = '&copy OmarMostafa'
+  forOnly.textContent = objectContainer.forOnly
+  footer.appendChild(copy)
+  footer.appendChild(forOnly)
+  body.appendChild(footer)
+}
+
+if (localStorage.getItem('name') == 'omar' && localStorage.getItem('password') == 'ooo') {
+  form.setAttribute('style', 'display:none;')
+  smoothScrolling()
+  createSlideShow(objectContainer)
+  showSlides(slideIndex)
+  createHeader(objectContainer)
+  createSection(objectContainer, 3)
+
+  const sections = document.querySelectorAll('main section');
+  createNav(sections)
+  createNightButton()
+  createFooter(objectContainer)
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('your-active-class');
+      } else {
+        entry.target.classList.remove('your-active-class');
+      }
+    });
+  }, { rootMargin: "-200px 0px -200px 0px" });
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
+
+
+  var nav = document.querySelector('nav')
+  var h1_Elements = document.querySelectorAll('h1');
+  var h2_Elements = document.querySelectorAll('h2');
+  var section_Elements = document.querySelectorAll('nav ul li a');
+  var p_Elements = document.querySelectorAll('p');
+  var toggleButton = document.getElementById('DarkMode');
+  var DarkModeLabel = document.getElementById("DarkModeLabel");
+  var switchButton = document.querySelector(".switch")
+  var footerElements = document.querySelectorAll('footer p')
+
+
+
+  lightMode();
 }
 
 
 
-smoothScrolling()
-createSlideShow(objectContainer)
-showSlides(slideIndex)
-createHeader(objectContainer)
-createSection(objectContainer)
-
-
-const sections = document.querySelectorAll('main section');
-observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('your-active-class');
-    } else {
-      entry.target.classList.remove('your-active-class');
-    }
-  });
-}, { rootMargin: "-200px 0px -200px 0px" });
-sections.forEach(section => {
-  observer.observe(section);
-});
-
-
-
-
-
-// var body = document.body.style.background;
-var h1_Elements = document.querySelectorAll('h1');
-var h2_Elements = document.querySelectorAll('h2');
-var nav_Element = document.querySelector('nav');
-var section_Elements = document.querySelectorAll('section');
-var p_Elements = document.querySelectorAll('p');
-var toggleButton = document.getElementById('DarkMode');
-var imgs = document.querySelectorAll('.mySlides img');
 //Night mode elements
-var light_body = 'linear-gradient(0deg, rgb(46, 44, 44) 0 %, rgb(51, 51, 51) 100 %)';
-var light_h1_Elements = h1_Elements[0].style.color;
-var light_h2_Elements = h2_Elements[0].style.color;
-var light_nav_Element = nav_Element.style.backgroundColor;
-var light_section_Elements = section_Elements[0].style.color;
-var light_p_Elements = p_Elements[0].style.color;
-var DarkModeLabel = document.getElementById("DarkModeLabel");
-var switchButton = document.querySelector(".switch")
+
 
 function lightMode() {
+  console.log(section_Elements)
 
   document.body.style.background = 'linear-gradient(0deg, rgb(231, 231, 231) 0%, rgb(159, 159, 159) 100%)';
 
-  for (let i = 0; i < h1_Elements.length; i++) {
-    h1_Elements[i].style.color = 'black'
-  }
-
-
-  for (let i = 0; i < h2_Elements.length; i++) {
-    h2_Elements[i].style.color = 'black'
-  }
-
-
-  for (let i = 0; i < section_Elements.length; i++) {
-    section_Elements[i].style.color = 'black'
-  }
-
-
-  for (let i = 0; i < p_Elements.length - 2; i++) {
-    p_Elements[i].style.color = 'black'
-  }
-
-  nav_Element.style.backgroundColor = 'rgb(211, 211, 211)';
-  DarkModeLabel.innerHTML = "Light Mode"
-  DarkModeLabel.style.color = 'rgb(255, 255, 255)'
-
-  let j = 0;
-  navbar.innerHTML = '';
-  sections.forEach(section => {
-    j++;
-    navbar.innerHTML += `<li><a href="#${section.id = 'section' + j}" style = "color: rgb(51, 51, 51)">${section.attributes['data-nav'].nodeValue}</a></li>`
+  h1_Elements.forEach(element => {
+    element.style.color = LightThemeColor
   })
 
+
+  h2_Elements.forEach(element => {
+    element.style.color = LightThemeColor
+  })
+
+
+  section_Elements.forEach(element => {
+    element.style.color = LightThemeColor
+  })
+
+
+  p_Elements.forEach(element => {
+    if (element.parentElement.id != 'page__footer') {
+      element.style.color = LightThemeColor
+    }
+  })
+
+  nav.style.backgroundColor = navLightThemeColor;
+  DarkModeLabel.innerHTML = "Light Mode"
+  DarkModeLabel.style.color = 'rgb(255, 255, 255)'
 }
 
-lightMode();
 
 function nightMode() {
 
-  document.body.style.background = 'linear-gradient(0deg, rgb(46, 44, 44) 0 %, rgb(51, 51, 51) 100%)';
+  document.body.style.background = 'linear-gradient(0deg, rgb(46, 44, 44) 0%, rgb(51, 51, 51) 100%)';
 
 
-  for (let i = 0; i < h1_Elements.length; i++) {
-    h1_Elements[i].style.color = light_h1_Elements
-  }
+  h1_Elements.forEach(element => {
+    element.style.color = DarkThemeColor
+  })
 
 
-  for (let i = 0; i < h2_Elements.length; i++) {
-    h2_Elements[i].style.color = light_h2_Elements
-  }
+  h2_Elements.forEach(element => {
+    element.style.color = DarkThemeColor
+  })
 
 
-  for (let i = 0; i < section_Elements.length; i++) {
-    section_Elements[i].style.color = light_section_Elements
-  }
+  section_Elements.forEach(element => {
+    element.style.color = DarkThemeColor
+  })
 
 
-  for (let i = 0; i < p_Elements.length; i++) {
-    p_Elements[i].style.color = light_p_Elements
-  }
+  p_Elements.forEach(element => {
+    if (element.parentElement.id != 'page__footer') {
+      element.style.color = DarkThemeColor
+    }
+  })
 
-  nav_Element.style.backgroundColor = light_nav_Element;
+  nav.style.backgroundColor = navDarkThemeColor;
   DarkModeLabel.innerHTML = "Night Mode"
   DarkModeLabel.color = 'rgb(27, 26, 26)'
-
-  let j = 0;
-  navbar.innerHTML = '';
-  sections.forEach(section => {
-    j++;
-    navbar.innerHTML += `<li><a href="#${section.id = 'section' + j}" style = "color: rgb(255, 240, 240)">${section.attributes['data-nav'].nodeValue}</a></li>`
-  })
 }
 
 
@@ -330,49 +441,40 @@ function toggle() {
     document.body.style.background = '';
     nightMode();
     toggleButton.classList.toggle('checked')
-    console.log('night')
 
   }
   else {
     lightMode();
     toggleButton.classList.toggle('checked')
-    console.log('light')
   }
-  console.log(document.body.style.background)
-  console.log(nav_Element.style.backgroundColor)
+
 }
 
 
-if (screen.availWidth >= 350 && screen.availWidth < 414) {
-  for (let i = 0; i < imgs.length; i++) {
-    imgs[i].setAttribute('style', 'width:340px; height: 380px;')
+localStorage.removeItem('name')
+localStorage.removeItem('password')
+var imgs = document.querySelectorAll('section img');
+
+let s = 1
+imgs.forEach(img => {
+  if (s % 2 == 1) {
+    img.setAttribute('style', `width: 100%;
+height: 100%;
+border-radius: 10%;
+float: left;
+position: relative;
+max-width: 350px;`)
   }
-  DarkModeLabel.style.transform = 'translate(-70px,21px)'
-  switchButton.setAttribute('style', `position: relative; display: inline-block;left: 78%;
-  width: 60px;
-  height: 34px;
-  top: 19%;
-  transform: translateY(25px);`)
-}
-
-
-if (screen.availWidth >= 414 && screen.availWidth < 800) {
-  for (let i = 0; i < imgs.length; i++) {
-    imgs[i].setAttribute('style', 'width:380px; height: 400px;')
+  else {
+    img.setAttribute('style', `width: 100%;
+height: 100%;
+border-radius: 10%;
+float: right;
+position: relative;
+max-width: 350px;`)
   }
+  s++;
+})
 
-  DarkModeLabel = 'translate(-230%,21px)'
-  switchButton.setAttribute('style', `position: relative; display: inline-block;left: 58%;
-  width: 60px;
-  height: 34px;
-  top: 19%;
-  transform: translateY(25px);`)
 
-}
-
-if (screen.availWidth >= 800 && screen.availWidth < 1440) {
-  for (let i = 0; i < imgs.length; i++) {
-    imgs[i].setAttribute('style', 'width: 768px; height: 600px;')
-  }
-}
 
