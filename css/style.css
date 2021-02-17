@@ -15,27 +15,26 @@ html {
 /* ---- Base Rules ---- */
 
 body {
-  background: linear-gradient(0deg, rgb(46, 44, 44) 0%, rgb(51, 51, 51) 100%);
+  background: rgb(184, 184, 184);
   margin: 0;
   font-family: "Merriweather", serif;
-  
+
   color: #fff;
-  top: 0;
 }
 
 /* Typeography General*/
 
 h1 {
   font-family: "Fira Sans", sans-serif;
-  font-size: 3em;
+  font-size: 2.5em;
   margin: 2em 1rem;
 }
 
-h2{
+h2 {
   font-size: 2em;
 }
 
-p span{
+p span {
   font-size: 1em;
 }
 @media only screen and (min-width: 35em) {
@@ -116,19 +115,10 @@ section:nth-of-type(even) .landing__container {
   margin-left: auto;
   text-align: right;
 }
-section img {
+/* section img {
   width: 300px;
   height: 200px;
-}
-
-@media screen and (min-width: 620px) {
-  section:nth-last-of-type(even) img {
-    margin-left: 65%;
-  }
-  section:nth-last-of-type(odd) img {
-    margin-left: 5%;
-  }
-}
+} */
 
 /* Background Circles */
 
@@ -315,8 +305,6 @@ section.your-active-class .landing__container::after {
     padding: 4px 6px;
   }
 }
-@media screen and (max-width: 520px) and (min-width: 340px) {
-}
 
 /*From Bank System--*/
 
@@ -366,7 +354,6 @@ nav ul li a {
   font-size: 20px;
   text-align: left;
   color: white;
-  margin: 0rem 0rem 0rem 1rem;
   display: block;
   max-width: max-content;
   animation: fadingNavContent 1.5s ease forwards;
@@ -424,14 +411,16 @@ nav ul li a {
 
 /* Slideshow container */
 #slideshow-container {
-  max-width: 600px;
+  max-width: 1000px;
+  width: 100%;
   position: relative;
   margin: auto;
 }
 
-/* Hide the images by default */
-.mySlides {
-  display: none;
+.responsive {
+  max-width: 100%;
+  max-height: 380px;
+  margin: auto;
 }
 
 /* Next & previous buttons */
@@ -528,12 +517,11 @@ nav ul li a {
 
 /* The switch - the box around the slider */
 .switch {
-  position: relative;
   display: inline-block;
   left: 90%;
   width: 60px;
   height: 34px;
-  top: 19%;
+  top: 25%;
   transform: translateY(25px);
 }
 
@@ -546,8 +534,8 @@ nav ul li a {
 
 #DarkModeLabel {
   position: absolute;
-  left: 83%;
-  transform: translateY(33px);
+  top: 0px;
+  right: 64px;
   color: rgb(255, 255, 255);
 }
 
@@ -598,3 +586,58 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+#nameInNav {
+  color: #1c5e94;
+}
+
+form {
+  border: 3px solid #f1f1f1;
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 200px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+}
+
+#buttonContainer {
+  text-align: right;
+  margin-right: 5%;
+  margin-top: 5px;
+}
+
+
