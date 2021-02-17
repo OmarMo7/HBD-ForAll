@@ -55,7 +55,8 @@ const objectContainer = {
 
 
 
-login.addEventListener('click', function () {
+login.addEventListener('click', function (e) {
+  e.preventDefault()
   var name = document.getElementById('username')
   var password = document.getElementById('password')
 
