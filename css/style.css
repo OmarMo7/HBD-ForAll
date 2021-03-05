@@ -98,9 +98,9 @@ nav ul li a:hover {
   background: #000;
   padding: 3em;
   color: #fff;
-  margin-top: 53%;
 }
 .page__footer p {
+  font-size: 1em;
   color: #fff;
 }
 
@@ -455,7 +455,7 @@ nav ul li a {
 .text {
   color: #f2f2f2;
   font-size: 15px;
-  padding: 8px 12px;
+  padding: 10px 0px;
   position: absolute;
   bottom: 8px;
   width: 100%;
@@ -630,6 +630,20 @@ button:hover {
   span.psw {
     display: block;
     float: none;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  img:nth-of-type(1) {
+    max-width: 325px;
+    border-radius: 4%;
+  }
+}
+@media screen and (min-width: 560px) {
+  img:nth-of-type(1) {
+    max-width: 40%;
+    min-width: 450px;
+    border-radius: 4%;
   }
 }
 
