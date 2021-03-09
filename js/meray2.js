@@ -55,12 +55,12 @@ const objectContainer = {
   shortMessage: "Here comes the day when the queen was born!",
   longMessage: 'يالا حالا بالا فالا حيّوا ابو الفاصات &#128512	',
   commentOnSection: [
-    , 'Happy Birthday, Meraaaaaaaayz &#127752'
-    , 'بطلى تحلوّى بقا &#128530'
-    , 'الميرايز وهيا بتحتفل بعيد ميلادها مع المذاكرة &#128534'
-    , 'وقد يأتيك الغدر من حيث لا تدرى &#128513'
-    , 'ايوا بقا &#128540 هنشوف هيجبلك انهى هدية السنادى'
-    , 'كل سنة وانتى حلوة وجميلة وقمورة يا ميراى ربنا يسعدك ويفرحك وما يجعلّك حزن أبدا وعقبال سبعين سنة عشان بعدها هيبقى كتير اوى &#128514	.. انتى هدية لأى حد فعلا &#128521'
+    'Happy Birthday, Meraaaaaaaayz &#127752',
+    'بطلى تحلوّى بقا &#128530',
+    'الميرايز وهيا بتحتفل بعيد ميلادها مع المذاكرة &#128534',
+    'وقد يأتيك الغدر من حيث لا تدرى &#128513',
+    'ايوا بقا &#128540 هنشوف هيجبلك انهى هدية السنادى',
+    'كل سنة وانتى حلوة وجميلة وقمورة يا ميراى ربنا يسعدك ويفرحك وما يجعلّك حزن أبدا وعقبال سبعين سنة عشان بعدها هيبقى كتير اوى &#128514	.. انتى هدية لأى حد فعلا &#128521',
   ]
   ,
   lightThemeBody: 'linear-gradient(0deg, rgb(231, 231, 231) 0%, rgb(204, 114, 182) 100%)',
@@ -68,12 +68,12 @@ const objectContainer = {
   nameOfSectionOdd: '&#127879'
   ,
   imgForSections: [
-    , 'https://media.giphy.com/media/l0MYAs5E2oIDCq9So/source.gif'
-    , 'img/Beauty.png'
-    , 'img/Miserable Cat.jpg'
-    , 'img/Looking behind.jpg'
-    , 'img/Makary.jpg'
-    , 'img/US.png'
+    'https://media.giphy.com/media/l0MYAs5E2oIDCq9So/source.gif',
+    'img/Beauty.png',
+    'img/Miserable Cat.jpg',
+    'img/Looking behind.jpg',
+    'img/Makary.jpg',
+    'img/US.png',
   ],
   specificSectionNum: 6,
   lightThemeBody: 'linear-gradient(0deg, rgb(231, 231, 231) 0%, rgb(204, 114, 182) 100%)',
@@ -192,7 +192,7 @@ function createSlideShow(objectContainer) {
 
 
 
-  let i = 1;
+  let i = 0;
   objectContainer.imgForSlider.forEach(imgName => {
     var mySlidesFade = document.createElement("div")
     var numberText = document.createElement("div")
@@ -209,7 +209,7 @@ function createSlideShow(objectContainer) {
     slideShow.appendChild(mySlidesFade)
     mySlidesFade.appendChild(img)
     mySlidesFade.appendChild(underText)
-    numberText.innerHTML = `${i} / ${objectContainer.imgForSlider.length}`
+    numberText.innerHTML = `${i + 1} / ${objectContainer.imgForSlider.length}`
     mySlidesFade.appendChild(numberText)
     slideShow.appendChild(prev)
     slideShow.appendChild(next)
@@ -225,7 +225,7 @@ function createSlideShow(objectContainer) {
     img.setAttribute('style', 'max-width:100%; max-height: 20%; border-radius: 5%; display:block;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
-    underText.innerHTML = objectContainer.underTextSlider[i - 1]
+    underText.innerHTML = objectContainer.underTextSlider[i]
 
     next.addEventListener('click', function () {
       plusSlides(1)
@@ -298,9 +298,9 @@ function createHeader(objectContainer) {
 
 }
 function createSection(objectContainer) {
-  let i = 1;
+  let i = 0;
 
-  objectContainer.commentOnSection.forEach(Comment => {
+  objectContainer.imgForSections.forEach(Img => {
     var section = document.createElement('section')
     var landingContainer = document.createElement('div')
     var nameOfSection = document.createElement('h2')
@@ -314,18 +314,19 @@ function createSection(objectContainer) {
 
     section.setAttribute('id', 'section1')
     section.setAttribute('data-nav', `Section ${i + 1}`)
-    if (i % 2 == 0) nameOfSection.innerHTML = objectContainer.nameOfSectionEven
-    else nameOfSection.innerHTML = objectContainer.nameOfSectionOdd
+    if (i % 2 == 0) { nameOfSection.innerHTML = objectContainer.nameOfSectionEven }
+    else { nameOfSection.innerHTML = objectContainer.nameOfSectionOdd }
     landingContainer.classList.add('landing__container')
     commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
-    img.setAttribute('src', objectContainer.imgForSections[i])
+    img.setAttribute('src', Img)
     console.log(objectContainer.imgForSections[i])
     console.log(objectContainer.imgForSections[0])
     console.log(i)
     img.setAttribute('style', "width:100%;")
 
-    commentOnSection.innerHTML = Comment
-    if (i == objectContainer.specificSectionNum) {
+    commentOnSection.innerHTML = objectContainer.commentOnSection[i]
+    console.log('comment ' + objectContainer.commentOnSection[i])
+    if (i + 1 == objectContainer.specificSectionNum) {
       var specialQuote = document.createElement('span')
       var quoteAfter = document.createElement('span')
       var br = document.createElement('br')
