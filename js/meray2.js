@@ -31,44 +31,58 @@ var login = document.getElementById('login')
 
 var DarkThemeColor = 'white'
 var LightThemeColor = 'black'
-// var gifSrc = 'https://media.giphy.com/media/l0MYAs5E2oIDCq9So/source.gif'
+var gifSrc = 'https://media.giphy.com/media/l0MYAs5E2oIDCq9So/source.gif'
 var slideIndex = 1;
 
 const objectContainer = {
-  name: 'Amira',
-  nameColor: '#60a9e6',
+  name: 'Meray',
+  nameColor: '#ff01dd',
   upMessage: 'Happy Birthday My dear friend, ',
   imgForSlider: [
-    'img/amira1.png',
-    'img/amira2.png'
+    'img/Baby.png',
+    'img/Beauty2.jpg',
+    'img/ghost.jpg',
+    'img/Beauty.png',
+    'img/US.png'
   ],
   underTextSlider: [
-    '&#128120 ضحكوا علينا وقالوا هندسة مفهاش بنات! ',
-    '&#128151 &#128153'
+    'انظروا إلى هذا الكتكوت &#128514',
+    'Like a moon in the sky &#128151',
+    'بس شبح شبح يعنى مش هزار &#129312',
+    '&#128153',
+    'Best Company Together &#128158'
   ],
-  shortMessage: "Yes!.. the real strong independent women exists!",
-  longMessage: '&#128512 &#128208 معلش متأخرة كتير &#128514 بس برضو لازم نحتفل بيكى يا هندسة 	',
+  shortMessage: "Here comes the day when the queen was born!",
+  longMessage: 'يالا حالا بالا فالا حيّوا ابو الفاصات &#128512	',
   commentOnSection: [
-    , '&#127752 خدى هنا رايحة فين! &#128565 .. احنا لسه مباركناش '
-    , '&#128120 طبعا عشان متبقاش الصفحة فاضية كده فلازم املاها بصور وحبشتكانات &#128517 &#128076 فقلنا نحط صورة الحلو ده'
-    , 'بقا انتى من مواليد اول السنة كده &#128526 حسبنا الله .. مش مصدق انك اكبر منى &#128513 &#128514 وعموما.. '
-  ],
+    , 'Happy Birthday, Meraaaaaaaayz &#127752'
+    , 'بطلى تحلوّى بقا &#128530'
+    , 'الميرايز وهيا بتحتفل بعيد ميلادها مع المذاكرة &#128534'
+    , 'وقد يأتيك الغدر من حيث لا تدرى &#128513'
+    , 'ايوا بقا &#128540 هنشوف هيجبلك انهى هدية السنادى'
+    , 'كل سنة وانتى حلوة وجميلة وقمورة يا ميراى ربنا يسعدك ويفرحك وما يجعلّك حزن أبدا وعقبال سبعين سنة عشان بعدها هيبقى كتير اوى &#128514	.. انتى هدية لأى حد فعلا &#128521'
+  ]
+  ,
+  lightThemeBody: 'linear-gradient(0deg, rgb(231, 231, 231) 0%, rgb(204, 114, 182) 100%)',
   nameOfSectionEven: '&#127881',
   nameOfSectionOdd: '&#127879'
   ,
   imgForSections: [
-    'img/amiraHBD.gif',
-    'img/amira1.png',
-    'img/amira2.png'
+    , 'https://media.giphy.com/media/l0MYAs5E2oIDCq9So/source.gif'
+    , 'img/Beauty.png'
+    , 'img/Miserable Cat.jpg'
+    , 'img/Looking behind.jpg'
+    , 'img/Makary.jpg'
+    , 'img/US.png'
   ],
-  specificSectionNum: 3,
-  lightThemeBody: 'linear-gradient(0deg, rgb(231, 231, 231) 0%, #5590c7 100%)',
-  navLightThemeColor: '#1677d0',
+  specificSectionNum: 6,
+  lightThemeBody: 'linear-gradient(0deg, rgb(231, 231, 231) 0%, rgb(204, 114, 182) 100%)',
+  navLightThemeColor: 'rgb(199, 76, 193)',
   navDarkThemeColor: 'rgb(27, 26, 26)',
   forOnly: '',
-  specialQuote: 'كل سنة وانتى بخير وسعادة وصحة وبعد عن الهموم والزعل &#128159 &#128525 ',
+  specialQuote: '&#128159 &#128525 وانا كنت محظوظ انى عرفتك فيوم مالايام ',
   specialQuoteColor: 'brown',
-  quoteAfter: '&#128526 وتعدى السنادى على خير وتقرقشى الخرسانه بسنانك ان شاء الله '
+  quoteAfter: ''
 };
 
 /**
@@ -284,7 +298,7 @@ function createHeader(objectContainer) {
 
 }
 function createSection(objectContainer) {
-  let i = 0;
+  let i = 1;
 
   objectContainer.commentOnSection.forEach(Comment => {
     var section = document.createElement('section')
@@ -311,7 +325,7 @@ function createSection(objectContainer) {
     img.setAttribute('style', "width:100%;")
 
     commentOnSection.innerHTML = Comment
-    if (i + 1 == objectContainer.specificSectionNum) {
+    if (i == objectContainer.specificSectionNum) {
       var specialQuote = document.createElement('span')
       var quoteAfter = document.createElement('span')
       var br = document.createElement('br')
@@ -363,7 +377,7 @@ if (localStorage.getItem('name') == 'amira' && localStorage.getItem('password') 
   createSlideShow(objectContainer)
   showSlides(slideIndex)
   createHeader(objectContainer)
-  createSection(objectContainer, 3)
+  createSection(objectContainer)
 
   const sections = document.querySelectorAll('main section');
   createNav(sections, objectContainer)
