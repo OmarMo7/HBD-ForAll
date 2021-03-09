@@ -49,9 +49,9 @@ const objectContainer = {
   shortMessage: "Yes!.. the real strong independent women exists!",
   longMessage: '&#128512 &#128208 معلش متأخرة كتير &#128514 بس برضو لازم نحتفل بيكى يا هندسة 	',
   commentOnSection: [
-    , '&#127752 خدى هنا رايحة فين! &#128565 .. احنا لسه مباركناش '
-    , '&#128120 طبعا عشان متبقاش الصفحة فاضية كده فلازم املاها بصور وحبشتكانات &#128517 &#128076 فقلنا نحط صورة الحلو ده'
-    , 'بقا انتى من مواليد اول السنة كده &#128526 حسبنا الله .. مش مصدق انك اكبر منى &#128513 &#128514 وعموما.. '
+    '&#127752 خدى هنا رايحة فين! &#128565 .. احنا لسه مباركناش ',
+    '&#128120 طبعا عشان متبقاش الصفحة فاضية كده فلازم املاها بصور وحبشتكانات &#128517 &#128076 فقلنا نحط صورة الحلو ده',
+    'بقا انتى من مواليد اول السنة كده &#128526 حسبنا الله .. مش مصدق انك اكبر منى &#128513 &#128514 وعموما.. ',
   ],
   nameOfSectionEven: '&#127881',
   nameOfSectionOdd: '&#127879'
@@ -71,6 +71,8 @@ const objectContainer = {
   quoteAfter: '&#128526 وتعدى السنادى على خير وتقرقشى الخرسانه بسنانك ان شاء الله '
 };
 
+var isUser = false
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -78,19 +80,6 @@ const objectContainer = {
 */
 
 
-
-login.addEventListener('click', function (e) {
-  e.preventDefault()
-  var name = document.getElementById('username')
-  var password = document.getElementById('password')
-
-  localStorage.setItem('name', name.value);
-  localStorage.setItem('password', password.value);
-  setTimeout(function () { refreshPage() }, 1000)
-  console.log('isPerson: ' + name.value)
-  console.log('isPerson: ' + password.value)
-
-})
 
 function refreshPage() {
   window.location.reload();
@@ -178,7 +167,7 @@ function createSlideShow(objectContainer) {
 
 
 
-  let i = 1;
+  let i = 0;
   objectContainer.imgForSlider.forEach(imgName => {
     var mySlidesFade = document.createElement("div")
     var numberText = document.createElement("div")
@@ -195,7 +184,7 @@ function createSlideShow(objectContainer) {
     slideShow.appendChild(mySlidesFade)
     mySlidesFade.appendChild(img)
     mySlidesFade.appendChild(underText)
-    numberText.innerHTML = `${i} / ${objectContainer.imgForSlider.length}`
+    numberText.innerHTML = `${i + 1} / ${objectContainer.imgForSlider.length}`
     mySlidesFade.appendChild(numberText)
     slideShow.appendChild(prev)
     slideShow.appendChild(next)
@@ -211,7 +200,7 @@ function createSlideShow(objectContainer) {
     img.setAttribute('style', 'max-width:100%; max-height: 20%; border-radius: 5%; display:block;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
-    underText.innerHTML = objectContainer.underTextSlider[i - 1]
+    underText.innerHTML = objectContainer.underTextSlider[i]
 
     next.addEventListener('click', function () {
       plusSlides(1)
@@ -286,7 +275,7 @@ function createHeader(objectContainer) {
 function createSection(objectContainer) {
   let i = 0;
 
-  objectContainer.commentOnSection.forEach(Comment => {
+  objectContainer.imgForSections.forEach(Img => {
     var section = document.createElement('section')
     var landingContainer = document.createElement('div')
     var nameOfSection = document.createElement('h2')
@@ -304,13 +293,13 @@ function createSection(objectContainer) {
     else nameOfSection.innerHTML = objectContainer.nameOfSectionOdd
     landingContainer.classList.add('landing__container')
     commentOnSection.setAttribute('style', "font-family: 'Harmattan', sans-serif;")
-    img.setAttribute('src', objectContainer.imgForSections[i])
+    img.setAttribute('src', Img)
     console.log(objectContainer.imgForSections[i])
     console.log(objectContainer.imgForSections[0])
     console.log(i)
     img.setAttribute('style', "width:100%;")
 
-    commentOnSection.innerHTML = Comment
+    commentOnSection.innerHTML = objectContainer.commentOnSection[i]
     if (i + 1 == objectContainer.specificSectionNum) {
       var specialQuote = document.createElement('span')
       var quoteAfter = document.createElement('span')
@@ -358,12 +347,13 @@ function createFooter(objectContainer) {
 }
 
 if (localStorage.getItem('name') == 'amira' && localStorage.getItem('password') == 'aaa') {
-  form.setAttribute('style', 'display:none;')
+  
+  isUser = true
   smoothScrolling()
   createSlideShow(objectContainer)
   showSlides(slideIndex)
   createHeader(objectContainer)
-  createSection(objectContainer, 3)
+  createSection(objectContainer)
 
   const sections = document.querySelectorAll('main section');
   createNav(sections, objectContainer)
@@ -398,7 +388,63 @@ if (localStorage.getItem('name') == 'amira' && localStorage.getItem('password') 
 
   lightMode(objectContainer);
 }
+else {
+  createForm(isUser)
+}
 
+
+function createForm(isUser) {
+  console.log(isUser)
+  if (isUser) return;
+  var form = document.createElement('form')
+  var container = document.createElement('div')
+  var labelUser = document.createElement('label')
+  var labelPassword = document.createElement('label')
+  var userInput = document.createElement('input')
+  var passInput = document.createElement('input')
+  var loginButton = document.createElement('button')
+
+  labelUser.innerHTML = '<b>Username</b>'
+  labelPassword.innerHTML = '<b>Password</b>'
+  loginButton.innerHTML = 'Login'
+  labelUser.setAttribute('for', 'uname')
+  labelPassword.setAttribute('for', 'psw')
+  userInput.setAttribute('type', 'text')
+  passInput.setAttribute('type', 'password')
+  loginButton.setAttribute('type', 'submit')
+  userInput.setAttribute('placeholder', 'Enter Username')
+  passInput.setAttribute('placeholder', 'Enter Password')
+  userInput.setAttribute('name', 'uname')
+  passInput.setAttribute('name', 'psw')
+  userInput.setAttribute('required', '')
+  passInput.setAttribute('required', '')
+  form.setAttribute('method', 'post')
+  userInput.id = 'username'
+  passInput.id = 'password'
+  loginButton.id = 'login'
+
+  loginButton.addEventListener('click', function (e) {
+    e.preventDefault()
+    var name = document.getElementById('username')
+    var password = document.getElementById('password')
+
+    localStorage.setItem('name', name.value);
+    localStorage.setItem('password', password.value);
+    setTimeout(function () { refreshPage() }, 1000)
+    console.log('isPerson: ' + name.value)
+    console.log('isPerson: ' + password.value)
+
+  })
+
+  container.classList.add('container')
+  container.appendChild(labelUser)
+  container.appendChild(userInput)
+  container.appendChild(labelPassword)
+  container.appendChild(passInput)
+  container.appendChild(loginButton)
+  form.appendChild(container)
+  body.appendChild(form)
+}
 
 
 //Night mode elements
