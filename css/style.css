@@ -7,7 +7,7 @@
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
 */
-
+@charset "UTF-8";
 html {
   scroll-behavior: smooth;
 }
@@ -15,7 +15,7 @@ html {
 /* ---- Base Rules ---- */
 
 body {
-  background: rgb(184, 184, 184);
+  background: #353535;
   margin: 0;
   font-family: "Merriweather", serif;
 
@@ -39,8 +39,7 @@ p span {
 }
 @media only screen and (min-width: 35em) {
   h1 {
-    font-size: 7em;
-    margin: 2em 4rem 1em;
+    font-size: 3.5em;
   }
 }
 h2 {
@@ -224,9 +223,9 @@ section.your-active-class .landing__container::after {
     transform: rotate(360deg) translate(-1em) rotate(-360deg);
   }
 }
-.fadingOut {
+/* .fadingOut {
   animation: fadeOut 3s linear forwards;
-}
+} */
 @keyframes fadeOut {
   0% {
     opacity: 1;
@@ -652,3 +651,131 @@ button:hover {
   margin-right: 5%;
   margin-top: 5px;
 }
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 10px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+/*Succes button*/
+
+/* .buttonContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -65px;
+  margin-top: -20px;
+  width: 130px;
+  height: 40px;
+  text-align: center;
+}
+
+button#succesButton {
+  outline: none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius: 40px;
+  background: #fff;
+  border: 2px solid #1ecd97;
+  color: #1ecd97;
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  top: 66%;
+  transition: all 0.25s ease;
+}
+button#succesButton:hover {
+  color: white;
+  background: #1ecd97;
+}
+button#succesButton:active {
+  letter-spacing: 2px;
+}
+button#succesButton:after {
+  content: "Login";
+}
+
+.onclic {
+  width: 40px;
+  border-color: #bbbbbb;
+  border-width: 3px;
+  font-size: 0;
+  border-left-color: #1ecd97;
+  -webkit-animation: rotating 2s 0.25s linear infinite;
+  animation: rotating 2s 0.25s linear infinite;
+}
+.onclic:after {
+  content: "";
+}
+.onclic:hover {
+  color: #1ecd97;
+  background: white;
+}
+
+.validate {
+  font-size: 13px;
+  color: white;
+  background: #1ecd97;
+}
+.validate:after {
+  font-family: "FontAwesome";
+  content: "";
+}
+
+@-webkit-keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
