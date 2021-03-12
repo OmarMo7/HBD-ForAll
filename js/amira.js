@@ -47,10 +47,10 @@ const objectContainer = {
     '&#128151 &#128153'
   ],
   shortMessage: "Yes!.. the real strong independent women exists!",
-  longMessage: '&#128512 &#128208 معلش متأخرة كتير &#128514 بس برضو لازم نحتفل بيكى يا هندسة 	',
+  longMessage: ' معلش متأخرة كتير &#128514 بس برضو لازم نحتفل بيكى يا هندسة &#128512 &#128208',
   commentOnSection: [
-    '&#127752 خدى هنا رايحة فين! &#128565 .. احنا لسه مباركناش ',
-    '&#128120 طبعا عشان متبقاش الصفحة فاضية كده فلازم املاها بصور وحبشتكانات &#128517 &#128076 فقلنا نحط صورة الحلو ده',
+    ' &#127752 خدى هنا رايحة فين! &#128565 .. احنا لسه مباركناش ',
+    ' طبعا عشان متبقاش الصفحة فاضية كده فلازم املاها بصور وحبشتكانات &#128517 &#128076 فقلنا نحط صورة الحلو ده &#128120',
     'بقا انتى من مواليد اول السنة كده &#128526 حسبنا الله .. مش مصدق انك اكبر منى &#128513 &#128514 وعموما.. ',
   ],
   nameOfSectionEven: '&#127881',
@@ -127,7 +127,13 @@ window.addEventListener('scroll', function () {
   }, timeout);
 }, false);
 
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
 
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
 
 
 /**
@@ -135,6 +141,29 @@ window.addEventListener('scroll', function () {
  * Begin Main Functions
  *
 */
+function createSideNav() {
+  var div = document.createElement('div')
+  var closeNavButton = document.createElement('a')
+  var span = document.createElement('span')
+
+  div.id = 'mySidenav'
+  div.classList.add('sidenav')
+  closeNavButton.classList.add('closebtn')
+  closeNavButton.innerHTML = "&times;"
+  closeNavButton.addEventListener('click', function () {
+    closeNav()
+  })
+  span.innerHTML = "&#9776;"
+  span.style = "font-size:30px;cursor:pointer"
+  span.addEventListener('click', function () {
+    openNav()
+  })
+
+  div.appendChild(closeNavButton)
+  body.appendChild(div)
+  // body.insertBefore(span, main)
+}
+
 function createNav(sections, objectContainer) {
   var navbar = document.createElement('nav')
   var logo = document.createElement('a')
@@ -153,6 +182,28 @@ function createNav(sections, objectContainer) {
   logo.appendChild(upMessage)
   navbar.appendChild(logo)
   upMessage.appendChild(Name)
+  //sideNav
+  var div = document.createElement('div')
+  var closeNavButton = document.createElement('a')
+  var span = document.createElement('span')
+
+  div.id = 'mySidenav'
+  div.classList.add('sidenav')
+  closeNavButton.classList.add('closebtn')
+  closeNavButton.innerHTML = "&times;"
+  closeNavButton.addEventListener('click', function () {
+    closeNav()
+  })
+  span.innerHTML = "&#9776;"
+  span.style = "font-size:30px;cursor:pointer"
+  span.addEventListener('click', function () {
+    openNav()
+  })
+
+  div.appendChild(closeNavButton)
+  body.appendChild(div)
+  navbar.appendChild(span)
+  //
   var j = 0
   sections.forEach(section => {
     var list_Element = document.createElement('li')
@@ -160,6 +211,7 @@ function createNav(sections, objectContainer) {
     list_Element.innerHTML += `<a href="#${section.id = 'section' + j}" style = "color: rgb(101, 101, 98)">${section.attributes['data-nav'].nodeValue}</a>`
     list.appendChild(list_Element)
   })
+  div.appendChild(list)
   body.insertBefore(navbar, main)
 }
 
@@ -197,7 +249,7 @@ function createSlideShow(objectContainer) {
     numberText.classList.add('numbertext')
     img.src = imgName
     img.classList.add('responsive')
-    img.setAttribute('style', 'max-width:100%; max-height: 20%; border-radius: 5%; display:block;')
+    img.setAttribute('style', 'max-width:75%; max-height: 20%; border-radius: 5%; display:block;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
     underText.innerHTML = objectContainer.underTextSlider[i]
@@ -289,6 +341,7 @@ function createSection(objectContainer) {
 
     section.setAttribute('id', 'section1')
     section.setAttribute('data-nav', `Section ${i + 1}`)
+    nameOfSection.style.textAlign = 'right'
     if (i % 2 == 0) nameOfSection.innerHTML = objectContainer.nameOfSectionEven
     else nameOfSection.innerHTML = objectContainer.nameOfSectionOdd
     landingContainer.classList.add('landing__container')
@@ -347,14 +400,14 @@ function createFooter(objectContainer) {
 }
 
 if (localStorage.getItem('name') == 'amira' && localStorage.getItem('password') == 'aaa') {
-  
+
   isUser = true
+  // createSideNav()
   smoothScrolling()
   createSlideShow(objectContainer)
   showSlides(slideIndex)
   createHeader(objectContainer)
   createSection(objectContainer)
-
   const sections = document.querySelectorAll('main section');
   createNav(sections, objectContainer)
   createNightButton()
@@ -447,6 +500,7 @@ function createForm(isUser) {
 }
 
 
+
 //Night mode elements
 
 function lightMode(objectContainer) {
@@ -536,21 +590,13 @@ let s = 1
 imgs.forEach(img => {
   console.log(img.getBoundingClientRect().width)
   console.log(img.getBoundingClientRect().height)
-  if (s == 1) {
-    //   img.setAttribute('style', `border-radius: 10%;
-    // float: left;
-    // position: relative;
-    // min-width: 417px;
-    // max-width: 500px;`)
-    s++
-    return
-  }
+  if (s == 1) { s++; return; }
   if (img.getBoundingClientRect().width < 450) {
+    console.log(s)
     if (s % 2 == 1) {
 
       img.setAttribute('style', `
 border-radius: 10%;
-float: left;
 position: relative;
 min-width: 20%;
 max-width: 40%;`)
@@ -558,18 +604,17 @@ max-width: 40%;`)
     else {
       img.setAttribute('style', `
 border-radius: 10%;
-float: right;
 position: relative;
 min-width: 20%;
 max-width: 40%;`)
     }
   }
   else {
+    console.log(s)
     if (s % 2 == 1) {
 
       img.setAttribute('style', `
 border-radius: 10%;
-float: left;
 position: relative;
 min-width: 20%;
 max-width: 23%;`)
@@ -577,15 +622,36 @@ max-width: 23%;`)
     else {
       img.setAttribute('style', `
 border-radius: 10%;
-float: right;
 position: relative;
 min-width: 20%;
 max-width: 23%;`)
     }
   }
 
+
   s++;
+
 })
 
 
+// function performAction() {
+//   button.addEventListener("click", function () {
+//     button.classList.add("onclic");
+//     validate();
+//   });
+//   console.log(button.classList);
 
+//   function validate() {
+//     setTimeout(function () {
+//       button.classList.remove("onclic");
+//       button.classList.add("validate");
+//       callback();
+//     }, 2250); //Loading time
+//   }
+//   function callback() {
+//     setTimeout(function () {
+//       button.classList.remove("validate");
+//       console.log(button.classList);
+//     }, 1250); //Transition from correct to original
+//   }
+// }
