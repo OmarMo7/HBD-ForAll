@@ -107,16 +107,16 @@ nav ul li a:hover {
 
 /* Landing Container Styles */
 
-.landing__container {
+.landing__container p {
   padding: 0.5em;
   text-align: left;
 }
-section:nth-of-type(even) .landing__container {
+/* section:nth-of-type(even) .landing__container {
   margin-top: 1%;
   margin-right: 0;
   margin-left: auto;
   text-align: right;
-}
+} */
 
 /* Background Circles */
 
@@ -640,7 +640,7 @@ button:hover {
 }
 @media screen and (min-width: 560px) {
   img:nth-of-type(1) {
-    max-width: 40%;
+    max-width: 35%;
     min-width: 450px;
     border-radius: 4%;
   }
