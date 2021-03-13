@@ -249,7 +249,7 @@ function createSlideShow(objectContainer) {
     numberText.classList.add('numbertext')
     img.src = imgName
     img.classList.add('responsive')
-    img.setAttribute('style', 'max-width:75%; max-height: 20%; border-radius: 5%; display:block;')
+    img.setAttribute('style', 'max-width:100%; max-height: 20%; border-radius: 5%; display:block;')
     underText.classList.add("text")
     underText.setAttribute('style', "font-family: 'Harmattan', sans-serif; font-size: 1.2em; margin-bottom:10px")
     underText.innerHTML = objectContainer.underTextSlider[i]
@@ -341,7 +341,6 @@ function createSection(objectContainer) {
 
     section.setAttribute('id', 'section1')
     section.setAttribute('data-nav', `Section ${i + 1}`)
-    nameOfSection.style.textAlign = 'right'
     if (i % 2 == 0) nameOfSection.innerHTML = objectContainer.nameOfSectionEven
     else nameOfSection.innerHTML = objectContainer.nameOfSectionOdd
     landingContainer.classList.add('landing__container')
